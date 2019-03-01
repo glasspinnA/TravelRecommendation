@@ -7,23 +7,43 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = "List demo";
+    List<String> listText = new List();
+    listText.add("1");
+    listText.add("1");
+    listText.add("1");
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(primarySwatch: Colors.yellow),
         home: Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-          ),
-          body: ListView(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.map),
-                title: Text("Map"),
-              ),
-              ListTile(leading: Icon(Icons.access_alarm), title: Text("Alarm")),
-              ListTile(trailing: Icon(Icons.work), title: Text("Travel"))
-            ],
-          ),
-        ));
+            appBar: AppBar(
+              title: Text(title),
+            ),
+            body: ListView.builder(
+              itemCount: listText.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 150.0,
+                  height: 270.0,
+                  child: Card(
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                            child: Text(
+                              "Hello World",
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                            alignment: Alignment.center,
+                            constraints: BoxConstraints.expand(),
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: ExactAssetImage("assets/jonna2.jpg"),
+                                    fit: BoxFit.cover)))
+                      ],
+                    ),
+                  ),
+                );
+              },
+            )));
   }
 }
