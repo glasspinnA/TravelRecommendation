@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/Destination.dart';
 import 'package:travel_app/SecondRoute.dart';
 
 void main() => runApp(MaterialApp(
@@ -8,7 +9,14 @@ void main() => runApp(MaterialApp(
 
 class TravelListRoute extends StatelessWidget {
   final title = "List demo";
-  final List<String> listText = new List();
+  List<Destination> listText = new List();
+
+  TravelListRoute() {
+    listText.add(new Destination("1", "1"));
+    listText.add(new Destination("2", "2"));
+
+    debugPrint(listText.length.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +25,7 @@ class TravelListRoute extends StatelessWidget {
         title: Text(title),
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: listText.length,
         itemBuilder: (context, index) {
           return SizedBox(
             width: 150.0,
@@ -27,9 +35,9 @@ class TravelListRoute extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SecondRoute(index)));
+                        builder: (context) => SecondRoute(listText[index])));
               },
-              child: CustomCard(),
+              child: CustomCard(listText, index),
             ),
           );
         },
@@ -39,6 +47,11 @@ class TravelListRoute extends StatelessWidget {
 }
 
 class CustomCard extends StatelessWidget {
+  final List<Destination> listText;
+  final int index;
+
+  CustomCard(this.listText, this.index) {}
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,7 +60,7 @@ class CustomCard extends StatelessWidget {
         children: <Widget>[
           Container(
             child: Text(
-              'Hello World!',
+              listText[index].getName().toString(),
               style: TextStyle(color: Colors.white),
               textAlign: TextAlign.center,
             ),
