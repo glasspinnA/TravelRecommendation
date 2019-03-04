@@ -5,16 +5,21 @@ class Destination {
   List<String> images = new List();
   String price;
 
-  Destination(
-    this.destinationName,
-    this.bodyText,
-  );
+  Destination(this.destinationName, this.bodyText, this.image, this.images);
 
   getName() {
     return this.destinationName;
   }
 
   getDescriptionText() {
-    return bodyText;
+    return this.bodyText;
+  }
+
+  getHeaderImage() {
+    return this.image;
+  }
+
+  getImageList() {
+    return this.images;
   }
 }

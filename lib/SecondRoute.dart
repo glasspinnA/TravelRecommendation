@@ -4,7 +4,7 @@ import 'package:travel_app/Destination.dart';
 class SecondRoute extends StatelessWidget {
   final Destination destination;
 
-  SecondRoute(this.destination) {}
+  SecondRoute(this.destination);
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,15 @@ class CustomListView extends StatelessWidget {
         return Container(
           child: Column(
             children: <Widget>[
-              HeaderImage(destination.getName()),
-              DescriptionBox(destination.getDescriptionText()),
-              HorizontalImages(),
+              HeaderImage(destination),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: DescriptionBox(destination.getDescriptionText()),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 50),
+                child: HorizontalImages(destination.getImageList()),
+              ),
             ],
           ),
         );
@@ -42,13 +48,13 @@ class CustomListView extends StatelessWidget {
   }
 }
 
-/**
+/*
  * Widget that shows the background image for the selected destination
  */
 class HeaderImage extends StatelessWidget {
-  final String destinationName;
+  final Destination destination;
 
-  HeaderImage(this.destinationName);
+  HeaderImage(this.destination);
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +64,30 @@ class HeaderImage extends StatelessWidget {
           clipper: CustomShape(),
           child: Container(
             height: 150.0,
-            child: Text(
-              destinationName,
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                  child: Container(
+                    width: 70,
+                    child: Text(
+                      destination.getName(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 50,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                )
+              ],
             ),
             constraints: BoxConstraints.tight(new Size(400, 350)),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: ExactAssetImage("assets/jonna2.jpg"),
+                  image: ExactAssetImage(destination.getHeaderImage()),
                   fit: BoxFit.cover),
             ),
           ),
@@ -76,7 +97,7 @@ class HeaderImage extends StatelessWidget {
   }
 }
 
-/**
+/*
  *  Widget that shows the descripton for the destination
  */
 class DescriptionBox extends StatelessWidget {
@@ -86,53 +107,68 @@ class DescriptionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[Text("Header"), Text(descriptionText)],
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              "Header",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+          ],
+        ),
+        Text(descriptionText)
+      ],
     );
   }
 }
 
-/**
+/*
  * Widget that shows the horizontal aligned images for the destination
  */
 class HorizontalImages extends StatelessWidget {
+  final List<String> imageList;
+
+  HorizontalImages(this.imageList);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20.0),
       height: 200.0,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.all(10),
-        children: <Widget>[
-          CustomImage(),
-          CustomImage(),
-          CustomImage(),
-          CustomImage()
-        ],
+        itemCount: imageList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return CustomImage(imageList[index]);
+        },
       ),
     );
   }
 }
 
 class CustomImage extends StatelessWidget {
+  final String imagePath;
+
+  CustomImage(this.imagePath);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 160.0,
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.only(right: 20),
       decoration: new BoxDecoration(
         image: DecorationImage(
-          image: ExactAssetImage("assets/jonna2.jpg"),
+          image: ExactAssetImage(imagePath),
           fit: BoxFit.cover,
         ),
-        border: Border.all(color: Colors.red, width: 2.0),
+        border: Border.all(color: Colors.black38, width: 2.0),
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
   }
 }
 
-/**
+/*
  * Widget for the button bar 
  */
 class CustomButtonBar extends StatelessWidget {
@@ -147,9 +183,13 @@ class CustomButtonBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+              padding: EdgeInsets.only(left: 20),
               child: Text(
                 "Book",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
               ),
             ),
             IconButton(
@@ -157,7 +197,7 @@ class CustomButtonBar extends StatelessWidget {
                 debugPrint("press");
               },
               icon: Icon(Icons.keyboard_arrow_right),
-              color: Colors.red,
+              color: Colors.white,
             ),
           ],
         ),
@@ -166,7 +206,7 @@ class CustomButtonBar extends StatelessWidget {
   }
 }
 
-/**
+/*
  * Clipper that gives the header image that flowing feeling
  */
 class CustomShape extends CustomClipper<Path> {
@@ -189,6 +229,7 @@ class CustomShape extends CustomClipper<Path> {
     path.lineTo(size.width, size.height);
     path.lineTo(size.width, 0.0);
     path.close();
+
     return path;
   }
 
