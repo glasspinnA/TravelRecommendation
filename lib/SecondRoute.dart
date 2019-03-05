@@ -11,6 +11,7 @@ class SecondRoute extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(destination.getName()),
+          backgroundColor: Color.fromRGBO(51, 51, 102, 1),
         ),
         body: Stack(
           children: <Widget>[CustomListView(destination), CustomButtonBar()],
@@ -29,6 +30,7 @@ class CustomListView extends StatelessWidget {
       itemCount: 1,
       itemBuilder: (context, index) {
         return Container(
+          color: Color.fromRGBO(44, 44, 84, 1),
           child: Column(
             children: <Widget>[
               HeaderImage(destination),
@@ -60,35 +62,47 @@ class HeaderImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        ClipPath(
-          clipper: CustomShape(),
-          child: Container(
-            height: 150.0,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-                  child: Container(
-                    width: 70,
-                    child: Text(
-                      destination.getName(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                      ),
-                      textAlign: TextAlign.left,
+        Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, .90),
+                  blurRadius: 350,
+                  offset: Offset(0, -40))
+            ],
+          ),
+          child: ClipPath(
+            clipper: CustomShape(),
+            child: Container(
+              constraints: BoxConstraints.tight(new Size(400, 350)),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: ExactAssetImage(
+                      destination.getHeaderImage(),
                     ),
-                  ),
-                )
-              ],
-            ),
-            constraints: BoxConstraints.tight(new Size(400, 350)),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: ExactAssetImage(destination.getHeaderImage()),
-                  fit: BoxFit.cover),
+                    fit: BoxFit.cover),
+              ),
+              height: 150.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                    child: Container(
+                      width: 70,
+                      child: Text(
+                        destination.getName(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -111,12 +125,18 @@ class DescriptionBox extends StatelessWidget {
         Row(
           children: <Widget>[
             Text(
-              "Header",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              "Overview",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.white),
             ),
           ],
         ),
-        Text(descriptionText)
+        Text(
+          descriptionText,
+          style: TextStyle(color: Colors.white),
+        )
       ],
     );
   }
@@ -161,7 +181,7 @@ class CustomImage extends StatelessWidget {
           image: ExactAssetImage(imagePath),
           fit: BoxFit.cover,
         ),
-        border: Border.all(color: Colors.black38, width: 2.0),
+        border: Border.all(color: Color.fromRGBO(44, 44, 84, .5), width: 2.0),
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
@@ -177,15 +197,23 @@ class CustomButtonBar extends StatelessWidget {
     return Positioned(
       bottom: 0,
       child: Container(
-        color: Colors.blue,
         width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(245, 59, 87, 1),
+                  Color.fromRGBO(239, 87, 119, 1),
+                ],
+                tileMode: TileMode.repeated)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                "Book",
+                "Book Now",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
@@ -193,9 +221,7 @@ class CustomButtonBar extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                debugPrint("press");
-              },
+              onPressed: () {},
               icon: Icon(Icons.keyboard_arrow_right),
               color: Colors.white,
             ),
