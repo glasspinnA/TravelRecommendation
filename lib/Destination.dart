@@ -5,7 +5,8 @@ class Destination {
   List<String> images = new List();
   String price;
 
-  Destination(this.destinationName, this.bodyText, this.image, this.images);
+  Destination(
+      this.destinationName, this.bodyText, this.image, this.images, this.price);
 
   getName() {
     return this.destinationName;
@@ -21,5 +22,9 @@ class Destination {
 
   getImageList() {
     return this.images;
+  }
+
+  getPrice() {
+    return this.price;
   }
 }

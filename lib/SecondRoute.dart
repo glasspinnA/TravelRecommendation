@@ -83,7 +83,7 @@ class HeaderImage extends StatelessWidget {
                     fit: BoxFit.cover),
               ),
               height: 150.0,
-              child: Column(
+              child: Stack(
                 children: <Widget>[
                   Container(
                     alignment: Alignment.topLeft,
@@ -93,12 +93,34 @@ class HeaderImage extends StatelessWidget {
                       child: Text(
                         destination.getName(),
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 50,
-                        ),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 50,
+                            shadows: <Shadow>[
+                              Shadow(
+                                  offset: Offset(0, 0),
+                                  color: Colors.black,
+                                  blurRadius: 3)
+                            ]),
                         textAlign: TextAlign.left,
                       ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(top: 50, left: 20),
+                    child: Text(
+                      destination.getPrice(),
+                      style: TextStyle(
+                          color: Colors.green,
+                          shadows: <Shadow>[
+                            Shadow(
+                                offset: Offset(0, 0),
+                                blurRadius: 10,
+                                color: Colors.black)
+                          ],
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600),
                     ),
                   )
                 ],
