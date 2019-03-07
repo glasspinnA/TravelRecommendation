@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/Destination.dart';
 import 'package:travel_app/SecondRoute.dart';
 
-void main() => runApp(MaterialApp(title: 'MyApp', home: TravelListRoute()));
+void main() => runApp(MaterialApp(
+      title: 'MyApp',
+      home: TravelListRoute(),
+      debugShowCheckedModeBanner: false,
+    ));
 
 class TravelListRoute extends StatelessWidget {
-  final title = "List demo";
+  final title = "Destinations";
   List<Destination> listText = new List();
 
   TravelListRoute() {
