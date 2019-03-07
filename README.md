@@ -1,16 +1,11 @@
-# travel_app
+# Travel destination recommendation app made with Flutter
 
-A new Flutter project.
+Focus is on the design
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
+![Screenshots](screenshots/1.png)
 
-A few resources to get you started if this is your first Flutter project:
+![Screenshots](screenshots/2.png)
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+![Screenshots](screenshots/3.png)
